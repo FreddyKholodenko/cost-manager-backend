@@ -7,6 +7,6 @@ const mongoose = require("mongoose");
 const categoriesDbSchema = new mongoose.Schema({
     name: String
 });
-const CategoryController = mongoose.model('Category', categoriesDbSchema);
+const CategoryController = mongoose.model('Categories', categoriesDbSchema);
 
 module.exports = CategoryController;

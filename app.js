@@ -15,10 +15,9 @@
 
 
  // The first URL part of the routes
- app.use('/category', CategoryRoute);
- app.use('/user', UserRoute);
- app.use('/cost', CostRoute);
- 
+ app.use('/users', UserRoute);
+ app.use('/costs', CostRoute);
+ app.use('/categories', CategoryRoute);
 
  // Mongoose connection to our MongoDB
  const dbUrl = process.env.MongoDB_url || 'mongodb+srv://Fredaniel:1656@cluster0.auheagd.mongodb.net/test';

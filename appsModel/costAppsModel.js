@@ -11,6 +11,6 @@ const costDbSchema = new mongoose.Schema({
     sum:Number,
     date:Date
 });
-const CostController = mongoose.model('Cost', costDbSchema);
+const CostController = mongoose.model('Costs', costDbSchema);
 
 module.exports = CostController;

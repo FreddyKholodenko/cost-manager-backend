@@ -5,17 +5,15 @@ const controllerCategoryFuncs = require('../appsController/categoryAppsControlle
 // Invoke express routing
 const router  = express.Router();
 
+//CRUD API routes for the 'categoryAppsController' 
 
-/*
-CRUD API routes for the 'categoryAppsController' 
-*/
-router.put('/update/:categoryId', controllerCategoryFuncs.putCategory);
+router.put('/updateCategory/:categoryId', controllerCategoryFuncs.updateCategory);
 
-router.post('/add', controllerCategoryFuncs.newCategory);
+router.post('/addNewCategory', controllerCategoryFuncs.addNewCategory);
 
-router.delete('/delete/:categoryId', controllerCategoryFuncs.deleteCategory);
+router.delete('/deleteOneCategory/:categoryId', controllerCategoryFuncs.deleteOneCategory);
+router.delete('/deleteAllCategories', controllerCategoryFuncs.deleteAllCategories);
 
-router.get('/resetCategories', controllerCategoryFuncs.resetCategories);
-router.get('', controllerCategoryFuncs.getCategories);
+router.get('/getCategoriesData', controllerCategoryFuncs.getCategoriesData);
 
 module.exports = router;

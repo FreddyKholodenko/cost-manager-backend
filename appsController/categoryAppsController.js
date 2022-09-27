@@ -2,58 +2,9 @@
 
 const categoryModel = require("../appsModel/categoryAppsModel");
 
-//This method deletes all categories and initialize default categories that we set
-
-const resetCategories = async (req, res) => {
-    try {
-        //Deletes all categories in the database
-        await categoryModel.deleteMany({});
-
-        res.status(205).json('Categories reset is done!');
-    } catch (e) {
-        res.status(500).json(e);
-    }
-};
-
-//This method returns all categories that are in mongoDB
-
-const getCategories = async (req, res) => {
-    try {
-        //Locates all categories from mongoDB
-        const categories = await categoryModel.find({});
-
-        if (categories) {
-            res.status(200).send(categories);
-        } else {
-            res.status(204).json('There are no categories');
-        }
-    } catch (e) {
-        res.status(500).json(e);
-    }
-
-};
-
-//This method is used to add a new category
-
-const newCategory = async (req, res) => {
-    try {
-        //Extracts field
-        const  {name}  = req.body;
-        const userCategory = new categoryModel({ name });
-
-        //Saves the new added category
-        userCategory.save((err, userCategory) => {
-            res.send(userCategory);
-        })
-    }catch (e) {
-        res.status(500).json(e);
-    }
-
-};
-
 //This method updates an existing category
 
-const putCategory = async (req, res) => {
+const updateCategory = async (req, res) => {
     try {
         //Extracts fields
 
@@ -69,9 +20,27 @@ const putCategory = async (req, res) => {
 
 };
 
+//This method is used to add a new category
+
+const addNewCategory = async (req, res) => {
+    try {
+        //Extracts field
+        const  {name}  = req.body;
+        const userCategory = new categoryModel({ name });
+
+        //Saves the new added category
+        userCategory.save((err, userCategory) => {
+            res.send(userCategory);
+        })
+    }catch (e) {
+        res.status(500).json(e);
+    }
+
+};
+
 //This method deletes an existing category
 
-const deleteCategory = async (req, res) => {
+const deleteOneCategory = async (req, res) => {
     try {
         //Extracts field
         const { categoryId } = req.params;
@@ -86,4 +55,35 @@ const deleteCategory = async (req, res) => {
 
 };
 
-module.exports = {newCategory, resetCategories, getCategories, putCategory, deleteCategory};
+//This method deletes all categories and initialize default categories that we set
+
+const deleteAllCategories = async (req, res) => {
+    try {
+        //Deletes all categories in the database
+        await categoryModel.deleteMany({});
+
+        res.status(200).json('Deleted All Categories!');
+    } catch (e) {
+        res.status(500).json(e);
+    }
+};
+
+//This method returns all categories that are in mongoDB
+
+const getCategoriesData = async (req, res) => {
+    try {
+        //Locates all categories from mongoDB
+        const categories = await categoryModel.find({});
+
+        if (categories) {
+            res.status(200).send(categories);
+        } else {
+            res.status(204).json('There are no categories');
+        }
+    } catch (e) {
+        res.status(500).json(e);
+    }
+
+};
+
+module.exports = {updateCategory, addNewCategory, deleteOneCategory, deleteAllCategories, getCategoriesData };

@@ -5,18 +5,17 @@ const controllerCostFuncs = require('../appsController/costAppsController');
 // Invoke express routing
 const router  = express.Router();
 
-/*
-CRUD API routes for the 'costAppsController' 
-*/
-router.put('/update/:costId', controllerCostFuncs.updateCost);
+//CRUD API routes for the 'costAppsController' 
 
-router.delete('/delete/:costId', controllerCostFuncs.deleteCost);
+router.put('/updateItemCost/:costId', controllerCostFuncs.updateItemCost);
 
-router.post('/add', controllerCostFuncs.newCost);
+router.delete('/deleteOneItemCost/:costId', controllerCostFuncs.deleteOneItemCost);
+router.delete('/DeleteAllCosts/:userId', controllerCostFuncs.DeleteAllCosts);
 
-router.get('/:userId', controllerCostFuncs.getCosts);
-router.get('/resetCost/:userId', controllerCostFuncs.resetCosts);
-router.get('/report/:fromDate/:toDate', controllerCostFuncs.getCostsReport);
+router.post('/addItemCost', controllerCostFuncs.addItemCost);
+
+router.get('/getItemCosts/:userId', controllerCostFuncs.getItemCosts);
+router.get('/getCostsReportByDate/:fromDate/:toDate', controllerCostFuncs.getCostsReportByDate);
 
 module.exports = router;
 
