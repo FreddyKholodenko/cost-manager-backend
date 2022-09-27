@@ -5,17 +5,16 @@ const controllerUserFuncs = require('../appsController/userAppsController');
 // Invoke express routing
 const router  = express.Router();
 
-/*
-CRUD API routes for the 'userAppsController' 
-*/
-router.post('/login',controllerUserFuncs.login);
-router.post('/add', controllerUserFuncs.newUser);
+//CRUD API routes for the 'userAppsController' 
 
-router.get('', controllerUserFuncs.getUsers);
-router.get('/resetUsers', controllerUserFuncs.resetUsers);
+router.post('/appsLogin',controllerUserFuncs.appsLogin);
+router.post('/addNewUser', controllerUserFuncs.addNewUser);
 
-router.put('/update/:userId', controllerUserFuncs.putUser);
+router.get('/getUsersInfo', controllerUserFuncs.getUsersInfo);
 
-router.delete('/delete/:userId', controllerUserFuncs.deleteUser);
+router.put('/updateUserData/:userId', controllerUserFuncs.updateUserData);
+
+router.delete('/deleteAllUsers', controllerUserFuncs.deleteAllUsers);
+router.delete('/delete/:userId', controllerUserFuncs.deleteOneUser);
 
 module.exports = router;

@@ -3,7 +3,37 @@ const userModel = require("../appsModel/userAppsModel");
 
 //This method adds a new user to the database
 
-const newUser = async (req, res) => {
+//Method is used for the login proccess, it checks that the user does exist in the database and that the password is correct
+
+const appsLogin = async (req,res) => {
+
+    try{
+        //Extracts field 
+        const { user_name ,password} = req.body;
+
+        let isUserExists = await userModel.findOne({user_name});
+
+
+        //Prints message that the user doesn't exists if it doesn't exists
+        if (isUserExists == null) {
+            res.status(404).json("This user does not exists!");
+            return;
+        }
+
+        //Displays a message if the password is incorrect
+        if (isUserExists.password !== password) {
+            res.status(401).json("User or password is not valid");
+            return;
+        }
+        //Prints a confirmation message if everything checks in
+        res.status(200).json("Logged in successfully!");
+    }
+    catch (e) {
+        res.status(500).json(e);
+    }
+}
+
+const addNewUser = async (req, res) => {
     try {
         //Extracts the relevant fields
         const {userId, first_name, last_name,user_name, password} = req.body;
@@ -28,7 +58,7 @@ const newUser = async (req, res) => {
 
 //This method prints all users in mongoDB
 
-const getUsers = async (req, res) => {
+const getUsersInfo = async (req, res) => {
     try {
         //This finds all existing users from mongoDB
         const users = await userModel.find({});
@@ -44,22 +74,11 @@ const getUsers = async (req, res) => {
     }
 };
 
-//This method resets all users in the mongoDB
 
-const resetUsers = async (req, res) => {
-    try {
-        //Delete all data in the database
-        await userModel.deleteMany({});
-        res.status(205).json('Users Reset Complete!');
-    }
-    catch (e) {
-        res.status(500).json(e);
-    }
-};
 
 //This method updates an existing user
 
-const putUser = async (req, res) => {
+const updateUserData = async (req, res) => {
     try {
         //Extract field
         const {userId} = req.params;
@@ -88,9 +107,22 @@ const putUser = async (req, res) => {
     }
 };
 
-//Deletes the user that is in the database
+//This method deletes all users in the mongoDB
 
-const deleteUser = async (req, res) => {
+const deleteAllUsers = async (req, res) => {
+    try {
+        //Delete all data in the database
+        await userModel.deleteMany({});
+        res.status(205).json('Deleted All Users!');
+    }
+    catch (e) {
+        res.status(500).json(e);
+    }
+};
+
+//Deletes one selected user in the database
+
+const deleteOneUser = async (req, res) => {
     try{
         //Extracts field
         const { userId } = req.params;
@@ -105,35 +137,7 @@ const deleteUser = async (req, res) => {
     }
 };
 
-//Method is used for the login proccess, it checks that the user does exist in the database and that the password is correct
 
-const login = async (req,res) => {
-
-    try{
-        //Extracts field 
-        const { user_name ,password} = req.body;
-
-        let isUserExists = await userModel.findOne({user_name});
-
-
-        //Prints message that the user doesn't exists if it doesn't exists
-        if (isUserExists == null) {
-            res.status(404).json("This user does not exists!");
-            return;
-        }
-
-        //Displays a message if the password is incorrect
-        if (isUserExists.password !== password) {
-            res.status(401).json("User or password is not valid");
-            return;
-        }
-        //Prints a confirmation message if everything checks in
-        res.status(200).json("Logged in successfully!");
-    }
-    catch (e) {
-        res.status(500).json(e);
-    }
-}
 
 //Method is used in creating new user, updating user or for login
 
@@ -148,4 +152,4 @@ const isUserExists = async (userId, res) => {
     return false;
 }
 
-module.exports = {login, newUser, resetUsers, getUsers, putUser, deleteUser};
+module.exports = {appsLogin, addNewUser, getUsersInfo, deleteAllUsers, updateUserData, deleteOneUser};
