@@ -15,6 +15,6 @@ router.get('', controllerUserFuncs.getUsersInfo);
 router.put('/updateUserData/:userId', controllerUserFuncs.updateUserData);
 
 router.delete('/deleteAllUsers', controllerUserFuncs.deleteAllUsers);
-router.delete('/delete/:userId', controllerUserFuncs.deleteOneUser);
+router.delete('/deleteOneUser/:userId', controllerUserFuncs.deleteOneUser);
 
 module.exports = router;
