@@ -10,7 +10,7 @@ const router  = express.Router();
 router.post('/appsLogin',controllerUserFuncs.appsLogin);
 router.post('/addNewUser', controllerUserFuncs.addNewUser);
 
-router.get('/getUsersInfo', controllerUserFuncs.getUsersInfo);
+router.get('', controllerUserFuncs.getUsersInfo);
 
 router.put('/updateUserData/:userId', controllerUserFuncs.updateUserData);
 
