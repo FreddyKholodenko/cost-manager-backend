@@ -113,7 +113,8 @@ const deleteAllUsers = async (req, res) => {
     try {
         //Delete all data in the database
         await userModel.deleteMany({});
-        res.status(205).json('Deleted All Users!');
+        res.status(200).json('Deleted All Users!');
+        
     }
     catch (e) {
         res.status(500).json(e);
