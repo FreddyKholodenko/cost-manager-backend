@@ -7,7 +7,6 @@ const router  = express.Router();
 
 //CRUD API routes for the 'userAppsController' 
 
-router.post('/appsLogin',controllerUserFuncs.appsLogin);
 router.post('/addNewUser', controllerUserFuncs.addNewUser);
 
 router.get('/getUsersInfo', controllerUserFuncs.getUsersInfo);

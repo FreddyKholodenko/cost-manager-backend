@@ -16,7 +16,7 @@ const updateItemCost = async (req, res) => {
         //Get the updated cost from the db
         const updatedCost = await costAppsModel.find({_id: costId});
         //Prints to the user the updated cost as confirmation that the change was successful 
-        res.status(200).json(updatedCost);
+        res.status(200).json("Updated Item Cost!");
     }
     catch (e){
         //Prints an error status for the user
@@ -33,7 +33,7 @@ const deleteOneItemCost = async (req, res) => {
         //Delete the speicifc item related to the given id from before
         await costAppsModel.deleteOne({_id: costId});
         //Prints confirmation message to the user that the item was deleted
-        res.status(200).json("Item Deleted");
+        res.status(200).json("Item Deleted!");
     }
     catch (e){
         //Prints an error status for the user
@@ -82,7 +82,7 @@ const addItemCost = async (req, res) => {
         //Saves it to the database
         newCost.save((err, newCost) => {
             //Prints to the user the new cost as confirmation that the creation was successful
-            res.status(201).json(newCost);
+            res.status(201).json("Added cost item!");
         })
     }
     catch (e){

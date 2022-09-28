@@ -1,4 +1,4 @@
-//import relevant module
+//import relevant module 
 
 const categoryModel = require("../appsModel/categoryAppsModel");
 
@@ -13,7 +13,7 @@ const updateCategory = async (req, res) => {
         await categoryModel.updateOne({ _id: categoryId },{ categoryName, },{ numberOfItems } );
         const updatedCategory = await categoryModel.find({_id: categoryId });
 
-        res.status(201).json(updatedCategory);
+        res.status(201).json("Category updated!");
     } catch (e) {
         res.status(500).json(e);
     }
