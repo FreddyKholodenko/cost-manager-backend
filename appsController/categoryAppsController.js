@@ -9,8 +9,8 @@ const updateCategory = async (req, res) => {
         //Extracts fields
 
         const { categoryId } = req.params;
-        const { name } = req.body;
-        await categoryModel.updateOne({ _id: categoryId }, { name });
+        const { categoryName,numberOfItems } = req.body;
+        await categoryModel.updateOne({ _id: categoryId },{ categoryName, },{ numberOfItems } );
         const updatedCategory = await categoryModel.find({_id: categoryId });
 
         res.status(201).json(updatedCategory);
@@ -25,8 +25,8 @@ const updateCategory = async (req, res) => {
 const addNewCategory = async (req, res) => {
     try {
         //Extracts field
-        const  {name}  = req.body;
-        const userCategory = new categoryModel({ name });
+        const  {categoryName,numberOfItems}  = req.body;
+        const userCategory = new categoryModel({ categoryName, numberOfItems });
 
         //Saves the new added category
         userCategory.save((err, userCategory) => {
