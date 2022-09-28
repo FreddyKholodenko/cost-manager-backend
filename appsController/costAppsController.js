@@ -3,8 +3,6 @@
 const costAppsModel = require("../appsModel/costAppsModel");
 const mongoose = require("mongoose");
 
-let prevTotalSum = 0;
-
 //This method updates existing cost
 
 const updateItemCost = async (req, res) => {
@@ -12,9 +10,9 @@ const updateItemCost = async (req, res) => {
         //Extract the "costId" param from the url
         const {costId} = req.params;
         //Extract params
-        const {description, sum, category, id, date} = req.body;
+        const {description, sum, category, idNumber, date} = req.body;
         //Update existing costs using the params
-        await costAppsModel.updateOne({_id: costId}, {description, sum, category, id, date});
+        await costAppsModel.updateOne({_id: costId}, {description, sum, category, idNumber, date});
         //Get the updated cost from the db
         const updatedCost = await costAppsModel.find({_id: costId});
         //Prints to the user the updated cost as confirmation that the change was successful 
@@ -43,14 +41,14 @@ const deleteOneItemCost = async (req, res) => {
     }
 };
 
-//This method deletes the costs in mongoDB
+//This method deletes the costs that are connected to one id number 
 
-const DeleteAllCosts = async (req, res) => {
+const deleteAllCostsByIdNumber = async (req, res) => {
     try {
         //Extract the "id" param of user from the url
-        const {id} = req.params;
-        //Delete everything that is connected to cost collection in the mongoDB
-        await costAppsModel.deleteMany({id});
+        const {idNumber} = req.params;
+        //Delete everything that is connected to cost collection in mongoDB
+        await costAppsModel.deleteMany({idNumber});
         //Prints a message to the client that the reset is done
         res.status(200).json('Deleted all costs!');
     } catch (e) {
@@ -59,14 +57,27 @@ const DeleteAllCosts = async (req, res) => {
     }
 };
 
+//This method deletes all costs
+
+const deleteAllCosts = async (req, res) => {
+    try {
+        //Delete all data in the database
+        await costAppsModel.deleteMany({});
+        res.status(200).json('Deleted All Costs!');
+        
+    }
+    catch (e) {
+        res.status(500).json(e);
+    }
+};
 //This method adds new cost to the database
 
 const addItemCost = async (req, res) => {
     try {
         //Extract params
-        const {description, sum, category, id, date} = req.body;
+        const {description, sum, category, idNumber, date} = req.body;
         const newCost =
-            new costAppsModel({description, sum, category, id, date});
+            new costAppsModel({description, sum, category, idNumber, date});
 
         //Saves it to the database
         newCost.save((err, newCost) => {
@@ -85,10 +96,10 @@ const addItemCost = async (req, res) => {
 
 const getItemCosts = async (req, res) => {
     try {
-        //Extract the "id" param from the url
-        const {id} = req.params;
+        //Extract the id number param from the url
+        const idNumber = req.params;
         //Get information about the costs in the database
-        const costs = await costAppsModel.find({id});
+        const costs = await costAppsModel.find(idNumber);
 
         //In case the costs are not null
         if (costs) {
@@ -101,6 +112,22 @@ const getItemCosts = async (req, res) => {
     }
     catch (e){
         //Prints an error status for the user
+        res.status(500).json(e);
+    }
+};
+
+const getAllCosts = async (req, res) => {
+    try {
+        //This finds all existing costs from mongoDB
+        const costs = await costAppsModel.find({});
+
+        if (costs) {
+            res.status(200).send(costs);
+        } else {
+            res.status(204).json('No costs available');
+        }
+    }
+    catch (e) {
         res.status(500).json(e);
     }
 };
@@ -120,7 +147,7 @@ const getCostsReportByDate = async (req, res) => {
             res.status(200).send(costs);
         } else {
             //Prints error 204
-            res.status(204).json('No costs');
+            res.status(204).json('No costs available');
         }
     }
     catch (e){
@@ -129,4 +156,4 @@ const getCostsReportByDate = async (req, res) => {
     }
 };
 
-module.exports = {updateItemCost, deleteOneItemCost, DeleteAllCosts, addItemCost, getItemCosts, getCostsReportByDate};
+module.exports = {updateItemCost, deleteOneItemCost, deleteAllCostsByIdNumber, deleteAllCosts, addItemCost, getItemCosts, getAllCosts, getCostsReportByDate};

@@ -10,11 +10,13 @@ const router  = express.Router();
 router.put('/updateItemCost/:costId', controllerCostFuncs.updateItemCost);
 
 router.delete('/deleteOneItemCost/:costId', controllerCostFuncs.deleteOneItemCost);
-router.delete('/DeleteAllCosts/:userId', controllerCostFuncs.DeleteAllCosts);
+router.delete('/deleteAllCostsByIdNumber/:idNumber', controllerCostFuncs.deleteAllCostsByIdNumber);
+router.delete('/deleteAllCosts', controllerCostFuncs.deleteAllCosts);
 
 router.post('/addItemCost', controllerCostFuncs.addItemCost);
 
-router.get('/getItemCosts/:userId', controllerCostFuncs.getItemCosts);
+router.get('/getItemCosts/:idNumber', controllerCostFuncs.getItemCosts);
+router.get('/getAllCosts', controllerCostFuncs.getAllCosts);
 router.get('/getCostsReportByDate/:fromDate/:toDate', controllerCostFuncs.getCostsReportByDate);
 
 module.exports = router;
