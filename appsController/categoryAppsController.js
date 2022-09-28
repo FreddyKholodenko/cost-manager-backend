@@ -30,7 +30,7 @@ const addNewCategory = async (req, res) => {
 
         //Saves the new added category
         userCategory.save((err, userCategory) => {
-            res.send(userCategory);
+            res.send("Category created!");
         })
     }catch (e) {
         res.status(500).json(e);
