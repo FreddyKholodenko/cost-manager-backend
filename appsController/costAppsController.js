@@ -158,4 +158,6 @@ const getCostsReportByDate = async (req, res) => {
     }
 };
 
-module.exports = {updateItemCost, deleteOneItemCost, deleteAllCostsByIdNumber, deleteAllCosts, addItemCost, getItemCosts, getAllCosts, getCostsReportByDate};
+module.exports = {updateItemCost, deleteOneItemCost, deleteAllCostsByIdNumber, deleteAllCosts,
+     addItemCost, getItemCosts, getAllCosts, getCostsReportByDate};
+     
