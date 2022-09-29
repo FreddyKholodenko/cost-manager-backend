@@ -15,7 +15,7 @@ const updateItemCost = async (req, res) => {
         await costAppsModel.updateOne({_id: costId}, {description, sum, category, idNumber, date});
         //Get the updated cost from the db
         const updatedCost = await costAppsModel.find({_id: costId});
-        //Prints to the user the updated cost as confirmation that the change was successful 
+        //Prints to the user a message that the item cost was updated successfuly
         res.status(200).json("Updated Item Cost!");
     }
     catch (e){
@@ -49,7 +49,7 @@ const deleteAllCostsByIdNumber = async (req, res) => {
         const {idNumber} = req.params;
         //Delete everything that is connected to cost collection in mongoDB
         await costAppsModel.deleteMany({idNumber});
-        //Prints a message to the client that the reset is done
+        //Prints a message to the client that all costs were deleted
         res.status(200).json('Deleted all costs!');
     } catch (e) {
         //Prints an error status for the user
@@ -70,7 +70,7 @@ const deleteAllCosts = async (req, res) => {
         res.status(500).json(e);
     }
 };
-//This method adds new cost to the database
+//This method adds a new cost to the database
 
 const addItemCost = async (req, res) => {
     try {
@@ -81,7 +81,7 @@ const addItemCost = async (req, res) => {
 
         //Saves it to the database
         newCost.save((err, newCost) => {
-            //Prints to the user the new cost as confirmation that the creation was successful
+            //Prints confirmation text
             res.status(201).json("Added cost item!");
         })
     }
@@ -90,7 +90,6 @@ const addItemCost = async (req, res) => {
         res.status(500).json(e);
     }
 };
-
 
 //This method shows all information about the costs that is in the mongoDB
 
@@ -106,7 +105,7 @@ const getItemCosts = async (req, res) => {
             //Message that returns all of the costs information to the client.
             res.status(200).send(costs);
         } else {
-            //Prints error 204
+            //Prints error message
             res.status(204).json('No costs available!');
         }
     }
@@ -116,6 +115,8 @@ const getItemCosts = async (req, res) => {
     }
 };
 
+// This method gives the user information about all of the costs
+
 const getAllCosts = async (req, res) => {
     try {
         //This finds all existing costs from mongoDB
@@ -124,6 +125,7 @@ const getAllCosts = async (req, res) => {
         if (costs) {
             res.status(200).send(costs);
         } else {
+
             res.status(204).json('No costs available');
         }
     }
@@ -132,7 +134,7 @@ const getAllCosts = async (req, res) => {
     }
 };
 
-//This method gives the user information about each item's cost for each full month
+//This method gives the user information about each item's cost in a specific date range
 
 const getCostsReportByDate = async (req, res) => {
     try {
@@ -146,7 +148,7 @@ const getCostsReportByDate = async (req, res) => {
             //Message that returns all of the costs information to the client.
             res.status(200).send(costs);
         } else {
-            //Prints error 204
+            //Prints error message
             res.status(204).json('No costs available');
         }
     }
