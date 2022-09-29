@@ -61,7 +61,7 @@ const deleteAllCategories = async (req, res) => {
     try {
         //Deletes all categories in the database
         await categoryModel.deleteMany({});
-
+        //Displays message that all categories were deleted
         res.status(200).json('Deleted All Categories!');
     } catch (e) {
         res.status(500).json(e);
