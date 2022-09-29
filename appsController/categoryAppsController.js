@@ -40,7 +40,6 @@ const addNewCategory = async (req, res) => {
 };
 
 //This method deletes an existing category
-
 const deleteOneCategory = async (req, res) => {
     try {
         //Extracts field
@@ -56,7 +55,7 @@ const deleteOneCategory = async (req, res) => {
 
 };
 
-//This method deletes all categories and initialize default categories that we set
+//This method deletes all categories
 
 const deleteAllCategories = async (req, res) => {
     try {
@@ -86,5 +85,5 @@ const getCategoriesData = async (req, res) => {
     }
 
 };
-
-module.exports = {updateCategory, addNewCategory, deleteOneCategory, deleteAllCategories, getCategoriesData };
+module.exports = {updateCategory, addNewCategory, deleteOneCategory,
+     deleteAllCategories, getCategoriesData };
