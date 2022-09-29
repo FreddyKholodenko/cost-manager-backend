@@ -7,12 +7,13 @@ const categoryModel = require("../appsModel/categoryAppsModel");
 const updateCategory = async (req, res) => {
     try {
         //Extracts fields
-
         const { categoryId } = req.params;
         const { categoryName,numberOfItems } = req.body;
-        await categoryModel.updateOne({ _id: categoryId },{ categoryName, },{ numberOfItems } );
+        await categoryModel.updateOne({ _id: categoryId },{ categoryName, },
+            { numberOfItems } );
         const updatedCategory = await categoryModel.find({_id: categoryId });
 
+        //Prints confirmation text that the category was updated
         res.status(201).json("Category updated!");
     } catch (e) {
         res.status(500).json(e);
